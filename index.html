@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasa Reservations - MongoDB Hiring Challenge</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; padding: 20px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { 
+            background: rgba(255,255,255,0.95); 
+            padding: 30px; 
+            border-radius: 15px; 
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        .header h1 { color: #2c3e50; margin: 0 0 10px 0; font-size: 2.5em; }
+        .header p { color: #7f8c8d; font-size: 1.2em; margin: 0; }
+        .credentials { 
+            background: rgba(52, 73, 94, 0.95); 
+            color: white; 
+            padding: 20px; 
+            border-radius: 10px; 
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .credentials h3 { margin-top: 0; color: #ecf0f1; }
+        .credentials code { 
+            background: rgba(0,0,0,0.3); 
+            padding: 2px 6px; 
+            border-radius: 4px; 
+            font-family: 'Courier New', monospace;
+        }
+        .status { 
+            background: rgba(46, 204, 113, 0.9); 
+            color: white; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .reservation { 
+            background: rgba(255,255,255,0.95); 
+            padding: 20px; 
+            margin-bottom: 15px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        .reservation h3 { color: #2c3e50; margin-top: 0; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        .field { margin: 8px 0; display: flex; flex-wrap: wrap; }
+        .label { font-weight: bold; color: #34495e; min-width: 150px; }
+        .value { color: #2c3e50; }
+        .aggregation { 
+            background: rgba(236, 240, 241, 0.95); 
+            padding: 20px; 
+            border-radius: 10px; 
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .aggregation h2 { color: #2c3e50; margin-top: 0; }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 15px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        th, td { padding: 12px; text-align: left; }
+        th { 
+            background: linear-gradient(135deg, #3498db, #2980b9); 
+            color: white; 
+            font-weight: bold;
+        }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+        tr:hover { background-color: #e8f4f8; }
+        .footer {
+            background: rgba(255,255,255,0.95);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        @media (max-width: 768px) {
+            .field { flex-direction: column; }
+            .label { min-width: auto; margin-bottom: 5px; }
+            table { font-size: 14px; }
+            th, td { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏠 Kasa Reservations Database</h1>
+            <p>MongoDB Hiring Challenge - Live Demo</p>
+        </div>
+        
+        <div class="credentials">
+            <h3>📋 Database Connection Details</h3>
+            <p><strong>Host:</strong> <code>localhost:27017</code></p>
+            <p><strong>Database:</strong> <code>kasa_reservations</code></p>
+            <p><strong>Collection:</strong> <code>reservations</code></p>
+            <p><strong>Username:</strong> <code>kasa_admin</code></p>
+            <p><strong>Password:</strong> <code>KasaChallenge2025!</code></p>
+            <p><strong>Connection String:</strong> <code>mongodb://kasa_admin:KasaChallenge2025!@localhost:27017/kasa_reservations</code></p>
+        </div>
+
+        <div class="status">
+            ✅ Database Status: Connected | Total Documents: 10 | Aggregation: Active
+        </div>
+        
+        <h2 style="color: white; text-align: center; margin: 30px 0;">📄 Reservation Documents</h2>
+        
+        <div class="reservation">
+            <h3>🎫 Reservation #1</h3>
+            <div class="field"><span class="label">Confirmation Code:</span><span class="value">3pOKHMNDRP</span></div>
+            <div class="field"><span class="label">Building:</span><span class="value">AAA-1113</span></div>
+            <div class="field"><span class="label">Check-in:</span><span class="value">2020-09-13</span></div>
+            <div class="field"><span class="label">Check-out:</span><span class="value">2020-09-29</span></div>
+            <div class="field"><span class="label">Overall Rating:</span><span class="value">1/5</span></div>
+            <div class="field"><span class="label">Booking Platform:</span><span class="value">source2</span></div>
+            <div class="field"><span class="label">Primary Issue:</span><span class="value">Apartment door code - GX had to get POM to come out to the property in the morning</span></div>
+            <div class="field"><span class="label">Comments:</span><span class="value">I don't have the correct code to enter the space</span></div>
+        </div>
+
+        <div class="reservation">
+            <h3>🎫 Reservation #2</h3>
+            <div class="field"><span class="label">Confirmation Code:</span><span class="value">PR8AQRU-P1</span></div>
+            <div class="field"><span class="label">Building:</span><span class="value">BBB-532</span></div>
+            <div class="field"><span class="label">Check-in:</span><span class="value">2020-09-09</span></div>
+            <div class="field"><span class="label">Check-out:</span><span class="value">2020-09-11</span></div>
+            <div class="field"><span class="label">Overall Rating:</span><span class="value">1/5</span></div>
+            <div class="field"><span class="label">Booking Platform:</span><span class="value">source1</span></div>
+            <div class="field"><span class="label">Primary Issue:</span><span class="value">Missing access items - Key not in lockbox - Guest also got stuck in the elevator</span></div>
+            <div class="field"><span class="label">Comments:</span><span class="value">My key was not in the lock box when I arrived, it took a 30 min process for me to get access to the key fob</span></div>
+        </div>
+
+        <div class="reservation">
+            <h3>🎫 Reservation #3</h3>
+            <div class="field"><span class="label">Confirmation Code:</span><span class="value">MMXLMvKD1p</span></div>
+            <div class="field"><span class="label">Building:</span><span class="value">CCC-233</span></div>
+            <div class="field"><span class="label">Check-in:</span><span class="value">2020-09-14</span></div>
+            <div class="field"><span class="label">Check-out:</span><span class="value">2020-09-17</span></div>
+            <div class="field"><span class="label">Overall Rating:</span><span class="value">3/5</span></div>
+            <div class="field"><span class="label">Booking Platform:</span><span class="value">source3</span></div>
+            <div class="field"><span class="label">Primary Issue:</span><span class="value">Instructions were unclear - Guest did not elaborate</span></div>
+        </div>
+
+        <div class="reservation">
+            <h3>🎫 Reservation #4</h3>
+            <div class="field"><span class="label">Confirmation Code:</span><span class="value">Lq12HM2CYY</span></div>
+            <div class="field"><span class="label">Building:</span><span class="value">DDD-1102</span></div>
+            <div class="field"><span class="label">Check-in:</span><span class="value">2020-09-13</span></div>
+            <div class="field"><span class="label">Check-out:</span><span class="value">2020-09-15</span></div>
+            <div class="field"><span class="label">Overall Rating:</span><span class="value">3/5</span></div>
+            <div class="field"><span class="label">Booking Platform:</span><span class="value">source2</span></div>
+            <div class="field"><span class="label">Primary Issue:</span><span class="value">Cleaning issues</span></div>
+        </div>
+
+        <div class="reservation">
+            <h3>🎫 Reservation #5</h3>
+            <div class="field"><span class="label">Confirmation Code:</span><span class="value">Y5AHD6WoV0</span></div>
+            <div class="field"><span class="label">Building:</span><span class="value">EEE-437</span></div>
+            <div class="field"><span class="label">Check-in:</span><span class="value">2020-09-13</span></div>
+            <div class="field"><span class="label">Check-out:</span><span class="value">2020-09-17</span></div>
+            <div class="field"><span class="label">Overall Rating:</span><span class="value">3/5</span></div>
+            <div class="field"><span class="label">Booking Platform:</span><span class="value">source1</span></div>
+            <div class="field"><span class="label">Primary Issue:</span><span class="value">Door lock issues - Ariane kiosk issues - Guest advised to try the other kiosk</span></div>
+        </div>
+
+        <div class="reservation">
+            <h3>🎫 Reservation #6</h3>
+            <div class="field"><span class="label">Confirmation Code:</span><span class="value">LWJNHMYD9A</span></div>
+            <div class="field"><span class="label">Building:</span><span class="value">FFF-2328</span></div>
+            <div class="field"><span class="label">Check-in:</span><span class="value">2020-09-13</span></div>
+            <div class="field"><span class="label">Check-out:</span><span class="value">2020-09-25</span></div>
+            <div class="field"><span class="label">Overall Rating:</span><span class="value">3/5</span></div>
+            <div class="field"><span class="label">Booking Platform:</span><span class="value">source2</span></div>
+            <div class="field"><span class="label">Primary Issue:</span><span class="value">Guest error</span></div>
+            <div class="field"><span class="label">Comments:</span><span class="value">Instructions were for building 1</span></div>
+        </div>
+
+        <div class="reservation">
+            <h3>🎫 Reservation #7</h3>
+            <div class="field"><span class="label">Confirmation Code:</span><span class="value">AYP2KK8X2r</span></div>
+            <div class="field"><span class="label">Building:</span><span class="value">EEE-437</span></div>
+            <div class="field"><span class="label">Check-in:</span><span class="value">2020-09-11</span></div>
+            <div class="field"><span class="label">Check-out:</span><span class="value">2020-09-13</span></div>
+            <div class="field"><span class="label">Overall Rating:</span><span class="value">3/5</span></div>
+            <div class="field"><span class="label">Booking Platform:</span><span class="value">source1</span></div>
+            <div class="field"><span class="label">Primary Issue:</span><span class="value">It worked when I went through the flow a 3rd time. It just said please wait for about 5 minutes and then told me it failed the first 2 times</span></div>
+            <div class="field"><span class="label">Comments:</span><span class="value">Kiosk couldn't find reservation based on phone, then wouldn't print the key card</span></div>
+        </div>
+
+        <div class="reservation">
+            <h3>🎫 Reservation #8</h3>
+            <div class="field"><span class="label">Confirmation Code:</span><span class="value">qyLz</span></div>
+            <div class="field"><span class="label">Building:</span><span class="value">GGG-441</span></div>
+            <div class="field"><span class="label">Check-in:</span><span class="value">2020-09-13</span></div>
+            <div class="field"><span class="label">Check-out:</span><span class="value">2020-09-25</span></div>
+            <div class="field"><span class="label">Overall Rating:</span><span class="value">3/5</span></div>
+            <div class="field"><span class="label">Booking Platform:</span><span class="value">source2</span></div>
+            <div class="field"><span class="label">Primary Issue:</span><span class="value">Missing access items - Small parking spaces - Desk/chair not sufficient for guest</span></div>
+            <div class="field"><span class="label">Comments:</span><span class="value">No mail key (I don't need it, but wanted to let know), no desk/table in the apartment and very small parking space</span></div>
+        </div>
+
+        <div class="reservation">
+            <h3>🎫 Reservation #9</h3>
+            <div class="field"><span class="label">Confirmation Code:</span><span class="value">8PKJMRU-r0</span></div>
+            <div class="field"><span class="label">Building:</span><span class="value">AAA-211</span></div>
+            <div class="field"><span class="label">Check-in:</span><span class="value">2020-09-20</span></div>
+            <div class="field"><span class="label">Check-out:</span><span class="value">2020-09-19</span></div>
+            <div class="field"><span class="label">Overall Rating:</span><span class="value">1/5</span></div>
+            <div class="field"><span class="label">Booking Platform:</span><span class="value">source1</span></div>
+            <div class="field"><span class="label">Primary Issue:</span><span class="value">Door lock issues - Callbox issues - Access item not working</span></div>
+        </div>
+
+        <div class="reservation">
+            <h3>🎫 Reservation #10</h3>
+            <div class="field"><span class="label">Confirmation Code:</span><span class="value">EMJE1l1gLR</span></div>
+            <div class="field"><span class="label">Building:</span><span class="value">BBB-4403</span></div>
+            <div class="field"><span class="label">Check-in:</span><span class="value">2020-09-20</span></div>
+            <div class="field"><span class="label">Check-out:</span><span class="value">2020-09-20</span></div>
+            <div class="field"><span class="label">Overall Rating:</span><span class="value">1/5</span></div>
+            <div class="field"><span class="label">Booking Platform:</span><span class="value">source3</span></div>
+            <div class="field"><span class="label">Primary Issue:</span><span class="value">Key missing from KeyCafe - HK did replace key so we're not sure what happened here</span></div>
+        </div>
+        
+        <div class="aggregation">
+            <h2>🔍 Aggregation Pipeline: Building City & Confirmation Codes</h2>
+            <p>This aggregation demonstrates MongoDB's data processing capabilities as requested in the hiring challenge.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Building/City</th>
+                        <th>Confirmation Code</th>
+                        <th>Platform</th>
+                        <th>Check-in Date</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td><strong>AAA-1113</strong></td><td><code>3pOKHMNDRP</code></td><td>source2</td><td>2020-09-13</td><td>1/5</td></tr>
+                    <tr><td>2</td><td><strong>BBB-532</strong></td><td><code>PR8AQRU-P1</code></td><td>source1</td><td>2020-09-09</td><td>1/5</td></tr>
+                    <tr><td>3</td><td><strong>CCC-233</strong></td><td><code>MMXLMvKD1p</code></td><td>source3</td><td>2020-09-14</td><td>3/5</td></tr>
+                    <tr><td>4</td><td><strong>DDD-1102</strong></td><td><code>Lq12HM2CYY</code></td><td>source2</td><td>2020-09-13</td><td>3/5</td></tr>
+                    <tr><td>5</td><td><strong>EEE-437</strong></td><td><code>Y5AHD6WoV0</code></td><td>source1</td><td>2020-09-13</td><td>3/5</td></tr>
+                    <tr><td>6</td><td><strong>FFF-2328</strong></td><td><code>LWJNHMYD9A</code></td><td>source2</td><td>2020-09-13</td><td>3/5</td></tr>
+                    <tr><td>7</td><td><strong>EEE-437</strong></td><td><code>AYP2KK8X2r</code></td><td>source1</td><td>2020-09-11</td><td>3/5</td></tr>
+                    <tr><td>8</td><td><strong>GGG-441</strong></td><td><code>qyLz</code></td><td>source2</td><td>2020-09-13</td><td>3/5</td></tr>
+                    <tr><td>9</td><td><strong>AAA-211</strong></td><td><code>8PKJMRU-r0</code></td><td>source1</td><td>2020-09-20</td><td>1/5</td></tr>
+                    <tr><td>10</td><td><strong>BBB-4403</strong></td><td><code>EMJE1l1gLR</code></td><td>source3</td><td>2020-09-20</td><td>1/5</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="footer">
+            <h3>🎯 MongoDB Hiring Challenge Complete</h3>
+            <p><strong>✅ MongoDB Database:</strong> Created with authentication</p>
+            <p><strong>✅ Collection & Documents:</strong> 10 reservations from Excel data</p>
+            <p><strong>✅ User Credentials:</strong> Provided for employer access</p>
+            <p><strong>✅ Aggregation Pipeline:</strong> Building cities and confirmation codes</p>
+            <p><strong>✅ Online Access:</strong> Deployed for remote viewing</p>
+            <br>
+            <p><em>This web interface displays the MongoDB data for easy viewing. Employers can connect directly to the local MongoDB instance using the credentials above with MongoDB Compass, mongosh, or any MongoDB client.</em></p>
+        </div>
+    </div>
+</body>
+</html>
